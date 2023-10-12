@@ -2,6 +2,7 @@ package com.DM.DeveloperMatching.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,10 @@ public class Review {
 
     @Column(name = "review_content")
     private String reviewContent;
+
+    @Builder
+    public Review(User reviewUser, String reviewContent) {
+        this.reviewUser = reviewUser;
+        this.reviewContent = reviewContent;
+    }
 }
