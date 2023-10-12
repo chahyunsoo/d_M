@@ -2,31 +2,60 @@ package com.DM.DeveloperMatching.controller;
 
 import com.DM.DeveloperMatching.domain.Article;
 import com.DM.DeveloperMatching.dto.Article.AddArticleRequest;
+import com.DM.DeveloperMatching.dto.Article.UpdateArticleRequest;
 import com.DM.DeveloperMatching.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
 @RequiredArgsConstructor
+@RestController
 @RequestMapping(value = "/api")
 public class ArticleController {
+
     private final ArticleService articleService;
 
-    //Article 생성
-//    @PostMapping("/articles")
-//    public ResponseEntity<Article> createArticle(@RequestBody AddArticleRequest addArticleRequest) {
-//        Long uId;
-//
-//        Article savedArticle = articleService.save(addArticleRequest,uId);
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(savedArticle);
-//    }
+    //모집 글 생성
+    @PostMapping("/articles")
+    public ResponseEntity<Article> createArticle(@RequestBody AddArticleRequest articleRequest) {
 
-    //Article 수정
-//    @PutMapping("/articles/")
-//    public Article update()
+        Long userId = 1L;
+        Article savedArticle = articleService.save(articleRequest, userId);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedArticle);
+    }
+
+    //모집 글 조회
+    @GetMapping("/articles")
+    public ResponseEntity<List<Article>> findAllArticles() {
+
+        List<Article> articles = articleService.findAll();
+
+        return ResponseEntity.ok()
+                .body(articles);
+    }
+
+    //모집 글 수정
+    @PutMapping("/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id,
+                                                 @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = articleService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
+    }
+
+    //모집 글 삭제
+    @DeleteMapping("/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
+        articleService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
 
 }

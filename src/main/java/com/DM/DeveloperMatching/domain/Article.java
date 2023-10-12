@@ -50,9 +50,8 @@ public class Article {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    public void update(User articleOwner, String title, int maximumMember, String recPart, String recTech, Level recLevel,
+    public void update(String title, int maximumMember, String recPart, String recTech, Level recLevel,
                        Date during, Date due, String content, Byte[] projectImg) {
-        this.articleOwner = articleOwner;
         this.title = title;
         this.maximumMember = maximumMember;
         this.recPart = recPart;

@@ -51,7 +51,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)   //양방향 잡을라고
     private List<Member> userInMember = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "likesUser", cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
 
 
