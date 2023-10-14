@@ -1,5 +1,6 @@
 package com.DM.DeveloperMatching.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,12 +14,15 @@ public class Article {
     @Column(name = "article_id")
     private Long aId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne//(fetch = FetchType.LAZY) <= 이거 하면 article 조회할 때 오류남 why? 직렬화 문제 발생 proxy
     @JoinColumn(name = "user_id")
     private User articleOwner;
 
     @Column(name = "title")
     private String title;
+
+    @Column(name = "content")
+    private String content;
 
     @Column(name = "maximum_member")
     private int maximumMember;
@@ -39,14 +43,11 @@ public class Article {
     @Temporal(TemporalType.DATE)
     private Date due;
 
-    @Column(name = "content")
-    private String content;
-
     @Lob
     @Column(name = "project_image")
     private Byte[] projectImg;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_id")
     private Project project;
 
@@ -65,7 +66,7 @@ public class Article {
 
     @Builder
     public Article(User articleOwner, String title, int maximumMember, String recPart, String recTech, Level recLevel,
-                   Date during, Date due, String content, Byte[] projectImg) {
+                   Date during, Date due, String content/*, Byte[] projectImg*/) {
         this.articleOwner = articleOwner;
         this.title = title;
         this.maximumMember = maximumMember;
@@ -76,9 +77,9 @@ public class Article {
         this.due = due;
         this.content = content;
         this.projectImg = projectImg;
-        this.project = Project.builder()
-                .memberCnt(1)
-                .projectStatus(ProjectStatus.RECRUITING)
+        this.project = Project.builder() // Article을 생성할 때 자동으로 Project도 생성
+                .memberCnt(1) // Project의 memberCnt를 Article의 maximumMember와 일치시킴
+                .projectStatus(ProjectStatus.RECRUITING) // 적절한 ProjectStatus 설정
                 .build();
     }
 

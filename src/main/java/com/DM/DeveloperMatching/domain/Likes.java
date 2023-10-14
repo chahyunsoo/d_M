@@ -23,9 +23,9 @@ public class Likes {
     private Project likesProject;
 
     @Builder
-    public Likes(User user, Project project) {
-        this.likesUser = user;
-        this.likesProject = project;
+    public Likes(User likesUser, Project likesProject) {
+        this.likesUser = likesUser;
+        this.likesProject = likesProject;
     }
 
 }

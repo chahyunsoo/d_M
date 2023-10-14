@@ -17,12 +17,12 @@ import java.util.Date;
 public class AddArticleRequest {
     private User articleOwner;
     private String title;
-    private String recPart;
     private int maximumMember;
+    private String recPart;
     private String recTech;
+    private Level recLevel;
     private Date during;
     private Date due;
-    private Level recLevel;
     private String content;
     @Lob
     private Byte[] projectImg;
@@ -31,8 +31,8 @@ public class AddArticleRequest {
         return Article.builder()
                 .articleOwner(user)
                 .title(title)
-                .recPart(recPart)
                 .maximumMember(maximumMember)
+                .recPart(recPart)
                 .recTech(recTech)
                 .during(during)
                 .due(due)

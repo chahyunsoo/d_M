@@ -17,21 +17,15 @@ public class Project {
     @Column(name = "member_count")
     private int memberCnt;
 
-//    @OneToOne(mappedBy = "project")
-//    private Article article;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "project_status")
     private ProjectStatus projectStatus;
 
-    @OneToMany(mappedBy = "project") //양방향 잡을라고
+    @OneToMany(mappedBy = "project",cascade = CascadeType.ALL) //양방향 잡을라고
     private List<Member> projectInMember = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "project")
-//    private List<Likes> projectInLikes = new ArrayList<>();
-
     @Builder
-    public Project(int memberCnt,ProjectStatus projectStatus) {
+    public Project(int memberCnt, ProjectStatus projectStatus) {
         this.memberCnt = memberCnt;
         this.projectStatus = projectStatus;
     }

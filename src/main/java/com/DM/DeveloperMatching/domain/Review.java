@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Review {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long rId;
 
@@ -28,4 +27,5 @@ public class Review {
         this.reviewUser = reviewUser;
         this.reviewContent = reviewContent;
     }
+
 }
