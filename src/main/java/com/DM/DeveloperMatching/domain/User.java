@@ -23,14 +23,14 @@ public class User {
     @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "phone_num",nullable = false)
+    @Column(name = "phone_num")
     private String phoneNum;
 
-    @Column(name = "part",nullable = false) //파트
+    @Column(name = "part")
     private String part;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "level",nullable = false)
+    @Column(name = "level")
     private Level level;
 
     @Column(name = "point")
@@ -42,11 +42,11 @@ public class User {
     @Column(name = "career")
     private String career;
 
-    @Column(name = "recStack") //기술 스택
-    private List<String> recStack = new ArrayList<>();
+    @Column(name = "tech")
+    private String tech;
 
-    @OneToMany(mappedBy = "articleOwner")
-    private List<Article> articles = new ArrayList<>();
+    /*@OneToMany(mappedBy = "articleOwner")
+    private List<Article> articles = new ArrayList<>();*/
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)   //양방향 잡을라고
     private List<Member> userInMember = new ArrayList<>();
@@ -54,26 +54,17 @@ public class User {
     @OneToMany(mappedBy = "likesUser", cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
 
-
-    /**
-     * User 수정
-     * 그런데 level이랑 point를 자기가 수정하게 할 수는 없으니까 빼야겠지?
-     */
-    public void updateUser(String userName, String password, String phoneNum, String part, Level level
-            , Double point, String introduction, String career,List<String> recStack) {
+    public void updateResume(String userName, String part, Level level, String introduction, String tech, String career) {
         this.userName = userName;
-        this.password = password;
-        this.phoneNum = phoneNum;
         this.part = part;
         this.level = level;
-        this.point = point;
         this.introduction = introduction;
+        this.tech = tech;
         this.career = career;
-        this.recStack = new ArrayList<>();
     }
 
     @Builder
-    public User(String userName, String password, String phoneNum, String part, Level level, Double point, String introduction, String career) {
+    public User(String userName, String password, String phoneNum, String part, Level level, Double point, String introduction, String career,String tech) {
         this.userName = userName;
         this.password = password;
         this.phoneNum = phoneNum;
@@ -82,6 +73,7 @@ public class User {
         this.point = point;
         this.introduction = introduction;
         this.career = career;
+        this.tech = tech;
     }
 
 
